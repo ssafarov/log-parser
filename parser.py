@@ -6,6 +6,9 @@ import os
 import re
 import sys
 import geoip2.database
+import wget
+import gzip
+import shutil
 
 from os import path
 from user_agents import parse
@@ -30,6 +33,7 @@ def file_size(filename):
 lang = 'en'
 input_file = 'log/access.log'
 geoip_database = 'GeoLite2-Country.mmdb'
+geoip_db_source = 'http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz'
 
 ########################################################################################################################
 # Script body
@@ -44,8 +48,21 @@ if if_size == 0:
     sys.exit('Inboud log file is empty. Stopped')
 
 if not path.exists(geoip_database):
+    print('Geo IP database not found. Trying to download from ' + geoip_db_source)
+    wgt_result = wget.download(geoip_db_source)
+    if wgt_result:
+        with gzip.open('GeoLite2-Country.mmdb.gz', 'rb') as f_in:
+            with open('GeoLite2-Country.mmdb', 'wb') as f_out:
+                print('Geo IP database downloaded. Extracting.')
+                shutil.copyfileobj(f_in, f_out)
+                print('Geo IP database extracted.')
+        # Clean downloaded compressed db file
+        if path.exists('GeoLite2-Country.mmdb.gz'):
+            os.remove('GeoLite2-Country.mmdb.gz')
+
+if not path.exists(geoip_database):
     print('Geo IP database not found. Countries will not be retrieved. ')
-    print('Download and put database ' + geoip_database + ' file into the script folder')
+    print('Please obtain the database ' + geoip_database + ' file and put it into the script folder')
 else:
     geo_ip_reader = geoip2.database.Reader(geoip_database)
 

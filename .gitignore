@@ -112,6 +112,9 @@ venv.bak/
 # Don't need to track any file in the inbloud folder. Just need to keep folder itself (gitkeep inside)
 log/*
 
+# Don't need to track geoip databases anymore
+*.mmdb
+
 # Don't need to track output (result file)
 *.csv
 
