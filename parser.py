@@ -33,6 +33,7 @@ def file_size(filename):
 ########################################################################################################################
 lang = 'en'
 input_file = 'log/access.log'
+geoip_database = 'GeoLite2-Country.mmdb'
 
 ########################################################################################################################
 # Script body
@@ -45,6 +46,12 @@ if_size = file_size(input_file)
 
 if if_size == 0:
     sys.exit('Inboud log file is empty. Stopped')
+
+if not path.exists(geoip_database):
+    print('Geo IP database not found. Countries will not be retrieved. ')
+    print('Download and put database ' + geoip_database + ' file into the script folder')
+else:
+    geo_ip_reader = geoip2.database.Reader(geoip_database)
 
 output_file = file_name(input_file) + '.csv'
 
