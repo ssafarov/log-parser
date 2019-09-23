@@ -64,6 +64,8 @@ with open(input_file, encoding="UTF8") as fi, open(output_file, 'w', encoding="U
 
     i = 1
     for line in fi:
+        sys.stdout.write("Parsing line: %d   \r" % (i))
+        sys.stdout.flush()
 
         ip_address = re.findall(r'[0-9]+(?:\.[0-9]+){3}', line)[0]
         try:
