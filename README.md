@@ -21,7 +21,7 @@ You'll need to have Python 3 installed with the following modules:
     \log  #folder for inbound log file
     \tests  #folder with test files
     \.gitignore  #Ignore rules for git
-    \GeoLite2-Country.mmdb  #Ip2Country database
+    \GeoLite2-Country.mmdb  #Ip2Country database. Can be either local or downloaded into container from http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz
     \LICENSE  #License file
     \parser.py #parser script
     \README.MD  #Thi file 
