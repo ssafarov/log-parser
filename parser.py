@@ -20,10 +20,6 @@ def file_name(filename):
     return os.path.splitext(os.path.basename(filename))[0]
 
 
-def file_extension(filename):
-    return os.path.splitext(filename)[1]
-
-
 def file_size(filename):
     return os.path.getsize(filename)
 
