@@ -59,7 +59,7 @@ print('Parsing ' + input_file + ' [' + str(if_size) + ' bytes]')
 print('Writing ' + file_name(output_file))
 
 with open(input_file, encoding="UTF8") as fi, open(output_file, 'w', encoding="UTF8") as fo:
-    writer = csv.writer(fo)
+    writer = csv.writer(fo, quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
     writer.writerow(['#', 'IP', 'Country', 'Browser', 'Device', 'Type', 'RAW LINE'])
 
     i = 1
@@ -67,6 +67,7 @@ with open(input_file, encoding="UTF8") as fi, open(output_file, 'w', encoding="U
 
         ip_address = re.findall(r'[0-9]+(?:\.[0-9]+){3}', line)[0]
         try:
+            # No problems here in case of geo DB not found as we are inside try/except block
             location = geo_ip_reader.country(ip_address)
 
             if location and location.country and location.country.names:
