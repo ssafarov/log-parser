@@ -56,7 +56,7 @@ else:
 output_file = file_name(input_file) + '.csv'
 
 print('Parsing ' + input_file + ' [' + str(if_size) + ' bytes]')
-print('Writing ' + file_name(output_file))
+print('Writing ' + output_file)
 
 with open(input_file, encoding="UTF8") as fi, open(output_file, 'w', encoding="UTF8") as fo:
     writer = csv.writer(fo, quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
@@ -64,7 +64,7 @@ with open(input_file, encoding="UTF8") as fi, open(output_file, 'w', encoding="U
 
     i = 1
     for line in fi:
-        sys.stdout.write("Parsing line: %d   \r" % (i))
+        sys.stdout.write("Processing line: %d   \r" % (i))
         sys.stdout.flush()
 
         ip_address = re.findall(r'[0-9]+(?:\.[0-9]+){3}', line)[0]
