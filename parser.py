@@ -9,6 +9,7 @@ import geoip2.database
 import wget
 import gzip
 import shutil
+import glob
 
 from os import path
 from user_agents import parse
@@ -30,6 +31,8 @@ def file_size(filename):
 ########################################################################################################################
 # Settings
 ########################################################################################################################
+deafult_log_file = 'https://cti-developer-dropbox.s3.amazonaws.com/gobankingrates.com.access.log'
+
 lang = 'en'
 input_file = 'log/access.log'
 geoip_database = 'GeoLite2-Country.mmdb'
@@ -38,6 +41,17 @@ geoip_db_source = 'http://geolite.maxmind.com/download/geoip/database/GeoLite2-C
 ########################################################################################################################
 # Script body
 ########################################################################################################################
+
+if not path.exists(input_file):
+    print('Access log file not found in local folder. Trying to download from default remote location ' + deafult_log_file)
+    wgt_result = wget.download(deafult_log_file, 'log/')
+    if wgt_result:
+        print('Access log file downloaded from default remote location.')
+        file_list = glob.glob ('log/*.log')
+        if len(file_list) > 0 and path.exists(file_list[0]):
+            input_file = file_list[0]
+            print('Using downloaded file ' + input_file)
+
 
 if not path.exists(input_file):
     sys.exit('Inboud log file not found. Stopped')
