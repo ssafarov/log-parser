@@ -1,3 +1,6 @@
+#JetBrains specific folders
+.idea
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -102,3 +105,15 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+
+# Script related files.
+# Don't need to track any file in the inbloud folder. Just need to keep folder itself (gitkeep inside)
+log/*
+
+# Don't need to track output (result file)
+*.csv
+
+# Service file
+!.gitkeep
